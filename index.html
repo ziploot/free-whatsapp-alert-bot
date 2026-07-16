@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZipLoot - Meta WhatsApp Alert Gateway</title>
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom Stylesheet with cache busting version -->
+  <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+  <div class="decor-glow glow-1"></div>
+  <div class="decor-glow glow-2"></div>
+
+  <div class="container">
+    <header class="app-header">
+      <div class="logo">
+        <i data-lucide="message-square" class="logo-icon"></i>
+        <span>ZipLoot <span class="accent-text">WhatsApp</span></span>
+      </div>
+      <p class="tagline">Free Serverless WhatsApp Alert & Notification Bot Gateway ($0 Twilio Alternative)</p>
+    </header>
+
+    <main class="app-layout">
+      <!-- Parameters Panel -->
+      <section class="control-panel glass-card">
+        <h2 class="section-title">
+          <i data-lucide="sliders"></i> API Credentials & Target
+        </h2>
+
+        <div class="input-group">
+          <label for="token">Meta Access Token</label>
+          <input type="text" id="token" placeholder="EAAG..." />
+        </div>
+
+        <div class="grid-controls">
+          <div class="input-group">
+            <label for="phone-id">Phone Number ID</label>
+            <input type="text" id="phone-id" placeholder="105987654321..." />
+          </div>
+
+          <div class="input-group">
+            <label for="recipient">Recipient Phone Number</label>
+            <input type="text" id="recipient" placeholder="8801700000000" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Message Type</label>
+          <div class="custom-select" id="msg-type-select">
+            <div class="select-trigger">
+              <span class="selected-value">Template (hello_world)</span>
+              <i data-lucide="chevron-down" class="select-arrow"></i>
+            </div>
+            <div class="select-options hidden">
+              <div class="select-option selected" data-value="template">Template (hello_world)</div>
+              <div class="select-option" data-value="text">Custom Text Message</div>
+            </div>
+            <input type="hidden" id="msg-type" value="template" />
+          </div>
+        </div>
+
+        <div class="input-group hidden" id="custom-text-group">
+          <label for="custom-message">Custom Message Payload</label>
+          <textarea id="custom-message" placeholder="🚀 Server Alert: Cwd workspace compiled successfully. Status: Online."></textarea>
+          <span class="helper-text"><i data-lucide="info" class="helper-icon"></i> Only works if recipient sent a message to the bot in the last 24h.</span>
+        </div>
+
+        <button id="send-btn" class="primary-btn">
+          <i data-lucide="send" class="btn-icon"></i>
+          <span>Send WhatsApp Alert</span>
+        </button>
+      </section>
+
+      <!-- Right Panel: Code Generator & Response Logs -->
+      <div class="right-panel-group">
+        <!-- Code Generator -->
+        <section class="code-panel glass-card">
+          <h2 class="section-title">
+            <i data-lucide="code-2"></i> Integration Snippets
+          </h2>
+          
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="curl">cURL</button>
+            <button class="tab-btn" data-tab="node">Node.js</button>
+            <button class="tab-btn" data-tab="python">Python</button>
+          </div>
+
+          <div class="tab-content" id="curl-tab">
+            <pre><code id="code-curl">curl -X POST "https://graph.facebook.com/v21.0/&lt;PHONE_ID&gt;/messages" \
+  -H "Authorization: Bearer &lt;TOKEN&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{{ ... }}'</code></pre>
+            <button class="copy-btn" data-target="code-curl"><i data-lucide="copy"></i> Copy</button>
+          </div>
+
+          <div class="tab-content hidden" id="node-tab">
+            <pre><code id="code-node">fetch("https://graph.facebook.com/v21.0/&lt;PHONE_ID&gt;/messages", {{
+  method: "POST",
+  headers: {{ ... }}
+}})</code></pre>
+            <button class="copy-btn" data-target="code-node"><i data-lucide="copy"></i> Copy</button>
+          </div>
+
+          <div class="tab-content hidden" id="python-tab">
+            <pre><code id="code-python">import requests
+requests.post("https://graph.facebook.com/v21.0/&lt;PHONE_ID&gt;/messages", headers={{...}})</code></pre>
+            <button class="copy-btn" data-target="code-python"><i data-lucide="copy"></i> Copy</button>
+          </div>
+        </section>
+
+        <!-- Response Logs -->
+        <section class="logs-panel glass-card">
+          <h2 class="section-title">
+            <i data-lucide="terminal"></i> Response Logger
+          </h2>
+          
+          <div class="log-viewport">
+            <div id="log-placeholder" class="log-placeholder">
+              <i data-lucide="terminal" class="log-icon"></i>
+              <p>Waiting for API requests...</p>
+            </div>
+            <pre id="log-output" class="log-output hidden"></pre>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p>&copy; 2026 ZipLoot. Meta Cloud API integration. Open-source release.</p>
+    </footer>
+  </div>
+
+  <!-- Custom Scripts with version cache bust -->
+  <script src="app.js?v=1"></script>
+</body>
+</html>
